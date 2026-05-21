@@ -1,917 +1,578 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sport on TV | Weekend 16–17 May 2026</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --red:    #c0392b;
-    --gold:   #d4a017;
-    --cream:  #fdf6e3;
-    --dark:   #1a0a00;
-    --brown:  #5c2d0a;
-    --tile:   #e8d5b0;
-    --border: #b8860b;
-    --muted:  #7a5c3a;
-    --shadow: rgba(90,30,0,0.18);
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My AI Enterprise — The Roadmap</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0d14;
+      --card: #111520;
+      --card2: #161b28;
+      --border: rgba(255,255,255,0.07);
+      --accent: #3be8b0;
+      --accent2: #6c8fff;
+      --accent3: #ff6b6b;
+      --accent4: #ffd36b;
+      --text: #e8eaf2;
+      --muted: #7a82a0;
+    }
 
-  body {
-    background-color: var(--cream);
-    background-image:
-      radial-gradient(circle at 20% 80%, rgba(192,57,43,0.07) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, rgba(212,160,23,0.09) 0%, transparent 50%),
-      url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23b8860b' fill-opacity='0.05'%3E%3Cpath d='M30 30m-2 0a2 2 0 1 0 4 0a2 2 0 1 0-4 0M0 0h60v60H0z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    color: var(--dark);
-    font-family: 'Lato', sans-serif;
-    min-height: 100vh;
-  }
+    html { scroll-behavior: smooth; }
 
-  /* ── HEADER ── */
-  header {
-    background: var(--red);
-    background-image: linear-gradient(135deg, #9b1c1c 0%, #c0392b 40%, #a93226 100%);
-    color: #fff;
-    padding: 0 0 0 0;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.35);
-  }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
 
-  .header-inner {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 14px 18px 10px;
-  }
+    /* ── Noise overlay ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
 
-  .flag-stripe {
-    height: 5px;
-    background: linear-gradient(to right, #c0392b 33%, #d4a017 33%, #d4a017 66%, #c0392b 66%);
-  }
+    /* ── Glow blobs ── */
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(120px);
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.18;
+    }
+    .blob-1 { width: 500px; height: 500px; background: var(--accent2); top: -150px; left: -150px; animation: drift 18s ease-in-out infinite alternate; }
+    .blob-2 { width: 400px; height: 400px; background: var(--accent); bottom: -100px; right: -100px; animation: drift 22s ease-in-out infinite alternate-reverse; }
 
-  .bull-icon {
-    font-size: 2rem;
-    line-height: 1;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
-  }
+    @keyframes drift {
+      from { transform: translate(0,0) scale(1); }
+      to   { transform: translate(40px, 30px) scale(1.08); }
+    }
 
-  .header-text h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.5rem;
-    font-weight: 900;
-    letter-spacing: 0.5px;
-    line-height: 1.1;
-    text-shadow: 0 2px 6px rgba(0,0,0,0.3);
-  }
+    /* ── Layout ── */
+    .container { position: relative; z-index: 1; max-width: 820px; margin: 0 auto; padding: 0 20px 80px; }
 
-  .header-text p {
-    font-size: 0.7rem;
-    font-weight: 300;
-    letter-spacing: 2px;
-    opacity: 0.85;
-    margin-top: 2px;
-    text-transform: uppercase;
-  }
+    /* ── Hero ── */
+    .hero {
+      text-align: center;
+      padding: 72px 0 56px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(60,232,176,0.1);
+      border: 1px solid rgba(60,232,176,0.3);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border-radius: 100px;
+      padding: 6px 16px;
+      margin-bottom: 28px;
+      animation: fadeUp 0.6s ease both;
+    }
+    .badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 1.6s ease infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
 
-  .tz-badge {
-    margin-left: auto;
-    text-align: right;
-    background: rgba(255,255,255,0.12);
-    border: 1px solid rgba(255,255,255,0.25);
-    border-radius: 8px;
-    padding: 5px 10px;
-    font-size: 0.65rem;
-    letter-spacing: 0.5px;
-    line-height: 1.6;
-    color: #ffe8b0;
-  }
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.4rem, 8vw, 4rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      animation: fadeUp 0.7s 0.1s ease both;
+    }
+    .hero h1 span { color: var(--accent); }
 
-  /* ── TABS ── */
-  .tabs {
-    display: flex;
-    border-top: 1px solid rgba(255,255,255,0.15);
-  }
+    .hero-sub {
+      margin: 20px auto 0;
+      max-width: 480px;
+      color: var(--muted);
+      font-size: 1.05rem;
+      font-weight: 300;
+      animation: fadeUp 0.7s 0.2s ease both;
+    }
 
-  .tab-btn {
-    flex: 1;
-    padding: 10px 6px;
-    background: transparent;
-    border: none;
-    border-bottom: 3px solid transparent;
-    color: rgba(255,255,255,0.65);
-    font-family: 'Playfair Display', serif;
-    font-size: 0.95rem;
-    font-weight: 700;
-    cursor: pointer;
-    letter-spacing: 0.3px;
-    transition: all 0.2s;
-    text-align: center;
-  }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
 
-  .tab-btn .sub { display: block; font-family: 'Lato', sans-serif; font-size: 0.62rem; font-weight: 300; letter-spacing: 1px; opacity: 0.8; margin-top: 1px; }
-  .tab-btn:hover { color: #fff; }
-  .tab-btn.active { color: #ffe8b0; border-bottom-color: var(--gold); }
+    /* ── Section headings ── */
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
 
-  /* ── CONTENT ── */
-  .content {
-    padding: 14px 14px 30px;
-    max-width: 680px;
-    margin: 0 auto;
-  }
+    /* ── Phase timeline ── */
+    .timeline { position: relative; padding-left: 32px; margin-bottom: 64px; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 12px;
+      bottom: 12px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--accent), var(--accent2), transparent);
+      border-radius: 2px;
+    }
 
-  .tab-panel { display: none; }
-  .tab-panel.active { display: block; }
+    .phase {
+      position: relative;
+      margin-bottom: 28px;
+      animation: fadeUp 0.6s ease both;
+    }
+    .phase:nth-child(1) { animation-delay: 0.05s; }
+    .phase:nth-child(2) { animation-delay: 0.1s; }
+    .phase:nth-child(3) { animation-delay: 0.15s; }
+    .phase:nth-child(4) { animation-delay: 0.2s; }
 
-  /* ── DAY HEADER ── */
-  .day-header {
-    display: flex;
-    align-items: baseline;
-    gap: 10px;
-    margin: 10px 0 14px;
-    border-bottom: 2px solid var(--border);
-    padding-bottom: 8px;
-  }
+    .phase-dot {
+      position: absolute;
+      left: -39px;
+      top: 14px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 2px solid var(--bg);
+    }
 
-  .day-label {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.6rem;
-    font-weight: 900;
-    color: var(--red);
-    line-height: 1;
-  }
+    .phase-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px 28px;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+    .phase-card:hover {
+      border-color: rgba(255,255,255,0.15);
+      transform: translateY(-2px);
+    }
 
-  .event-count {
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    color: var(--muted);
-    text-transform: uppercase;
-  }
+    .phase-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 12px;
+    }
+    .phase-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      padding: 4px 10px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+    .phase-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+    .phase-desc { color: var(--muted); font-size: 0.9rem; font-weight: 300; }
 
-  /* ── TIME LEGEND ── */
-  .tz-legend {
-    display: flex;
-    gap: 16px;
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 10px;
-    padding: 6px 12px;
-    background: rgba(212,160,23,0.08);
-    border: 1px solid rgba(184,134,11,0.2);
-    border-radius: 6px;
-  }
+    /* ── Tool cards grid ── */
+    .tool-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 64px;
+    }
+    @media (max-width: 500px) { .tool-grid { grid-template-columns: 1fr; } }
 
-  .tz-legend span { display: flex; align-items: center; gap: 5px; }
-  .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
-  .dot-ire { background: #2980b9; }
-  .dot-esp { background: var(--red); }
+    .tool-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px 22px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: border-color 0.25s, transform 0.25s;
+      animation: fadeUp 0.6s ease both;
+    }
+    .tool-card:hover {
+      border-color: rgba(255,255,255,0.15);
+      transform: translateY(-3px);
+    }
+    .tool-icon {
+      font-size: 1.7rem;
+      line-height: 1;
+    }
+    .tool-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+    .tool-desc {
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 300;
+      line-height: 1.5;
+    }
+    .tool-tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 100px;
+      margin-top: auto;
+    }
 
-  /* ── EVENT CARD ── */
-  .event-card {
-    background: #fff;
-    border: 1px solid #e8d5b0;
-    border-left: 4px solid var(--gold);
-    border-radius: 8px;
-    padding: 10px 12px;
-    margin-bottom: 7px;
-    display: flex;
-    align-items: center;
-    gap: 11px;
-    box-shadow: 0 2px 8px var(--shadow);
-    transition: transform 0.15s, box-shadow 0.15s;
-  }
+    /* ── Safety checklist ── */
+    .checklist { list-style: none; margin-bottom: 64px; display: flex; flex-direction: column; gap: 12px; }
+    .checklist li {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      font-size: 0.9rem;
+      animation: fadeUp 0.6s ease both;
+    }
+    .checklist li:nth-child(1){animation-delay:0.05s}
+    .checklist li:nth-child(2){animation-delay:0.1s}
+    .checklist li:nth-child(3){animation-delay:0.15s}
+    .check-icon {
+      width: 26px;
+      height: 26px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .checklist strong { display: block; font-weight: 500; margin-bottom: 3px; color: var(--text); }
+    .checklist span { color: var(--muted); font-weight: 300; }
 
-  .event-card:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 16px var(--shadow);
-  }
+    /* ── Tutor tip ── */
+    .tip-box {
+      background: linear-gradient(135deg, rgba(108,143,255,0.12), rgba(60,232,176,0.08));
+      border: 1px solid rgba(108,143,255,0.25);
+      border-radius: 18px;
+      padding: 28px 28px 26px;
+      margin-bottom: 64px;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+    .tip-box .tip-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 10px;
+    }
+    .tip-box p { color: var(--muted); font-size: 0.92rem; font-weight: 300; line-height: 1.7; }
+    .tip-box code {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 10px 14px;
+      display: block;
+      margin-top: 14px;
+      font-size: 0.88rem;
+      font-family: 'DM Mono', 'Fira Code', monospace;
+      color: var(--accent);
+      line-height: 1.6;
+    }
 
-  /* special: GAA cards */
-  .event-card.gaa { border-left-color: #27ae60; }
-  .event-card.gaa .event-time-ire { color: #27ae60; }
+    /* ── GitHub callout ── */
+    .github-bar {
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 26px 28px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 64px;
+      animation: fadeUp 0.6s 0.25s ease both;
+    }
+    .gh-icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+    .gh-text strong { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; display: block; margin-bottom: 4px; }
+    .gh-text span { color: var(--muted); font-size: 0.85rem; font-weight: 300; }
 
-  /* ── SPORT ICON ── */
-  .sport-icon {
-    font-size: 1.4rem;
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    background: var(--tile);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    border: 1px solid #d4c08a;
-  }
+    /* ── Progress tracker ── */
+    .progress-section { margin-bottom: 64px; }
+    .progress-item { margin-bottom: 16px; animation: fadeUp 0.6s ease both; }
+    .progress-item:nth-child(1){animation-delay:0.05s}
+    .progress-item:nth-child(2){animation-delay:0.1s}
+    .progress-item:nth-child(3){animation-delay:0.15s}
+    .progress-item:nth-child(4){animation-delay:0.2s}
+    .prog-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      font-size: 0.88rem;
+    }
+    .prog-label span:first-child { font-weight: 500; }
+    .prog-label span:last-child { color: var(--muted); font-size: 0.78rem; }
+    .prog-track {
+      height: 6px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+    .prog-fill {
+      height: 100%;
+      border-radius: 100px;
+      transform-origin: left;
+      animation: fillBar 1.2s 0.5s cubic-bezier(0.22,1,0.36,1) both;
+    }
+    @keyframes fillBar { from{transform:scaleX(0)} to{transform:scaleX(1)} }
 
-  /* ── INFO ── */
-  .event-info { flex: 1; min-width: 0; }
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 32px 0 0;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.8rem;
+      font-weight: 300;
+    }
+    footer strong { color: var(--accent); font-weight: 500; }
 
-  .event-title {
-    font-weight: 700;
-    font-size: 0.88rem;
-    color: var(--dark);
-    line-height: 1.3;
-  }
+    /* ── Colour helpers ── */
+    .c-green  { color: var(--accent);  }
+    .c-blue   { color: var(--accent2); }
+    .c-red    { color: var(--accent3); }
+    .c-yellow { color: var(--accent4); }
 
-  .event-sub {
-    font-size: 0.7rem;
-    color: var(--muted);
-    margin-top: 2px;
-  }
+    .bg-green  { background: rgba(60,232,176,0.12);  color: var(--accent);  }
+    .bg-blue   { background: rgba(108,143,255,0.12); color: var(--accent2); }
+    .bg-red    { background: rgba(255,107,107,0.12); color: var(--accent3); }
+    .bg-yellow { background: rgba(255,211,107,0.12); color: var(--accent4); }
 
-  /* ── META ── */
-  .event-meta {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 3px;
-    flex-shrink: 0;
-  }
-
-  .times {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 1px;
-  }
-
-  .time-row {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 0.78rem;
-    font-weight: 700;
-  }
-
-  .time-flag { font-size: 0.75rem; line-height: 1; }
-  .event-time-ire { color: #2980b9; font-family: 'Lato', sans-serif; font-size: 0.82rem; }
-  .event-time-esp { color: var(--red); font-family: 'Lato', sans-serif; font-size: 0.82rem; }
-
-  .event-channel {
-    font-size: 0.63rem;
-    font-weight: 700;
-    padding: 2px 6px;
-    border-radius: 4px;
-    letter-spacing: 0.3px;
-    white-space: nowrap;
-    background: var(--tile);
-    color: var(--brown);
-    border: 1px solid #d4c08a;
-  }
-
-  .ch-bbc  { background: #fde8e8; color: #c0392b; border-color: #f5a8a0; }
-  .ch-rte  { background: #e8f8f0; color: #1a7a45; border-color: #a0dfc0; }
-  .ch-sky  { background: #e8f0fd; color: #1a4a8a; border-color: #a0b8f0; }
-  .ch-tnt  { background: #fef4e0; color: #8a5a00; border-color: #f0d080; }
-  .ch-vm   { background: #f4e8fd; color: #6a1a9a; border-color: #d0a0f0; }
-  .ch-gaa  { background: #e8f8f0; color: #1a7a45; border-color: #a0dfc0; }
-  .ch-tg4  { background: #e8f8f0; color: #0a6e3a; border-color: #80d0a0; }
-  .ch-utv  { background: #e8f0fd; color: #3a3a8a; border-color: #a8a8f0; }
-  .ch-netflix { background: #fde8e8; color: #8a0000; border-color: #f08080; }
-
-  /* ── SECTION DIVIDER ── */
-  .section-divider {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin: 16px 0 8px;
-  }
-
-  .section-divider span {
-    font-family: 'Playfair Display', serif;
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: var(--brown);
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    white-space: nowrap;
-  }
-
-  .section-divider::before,
-  .section-divider::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(to right, transparent, var(--border), transparent);
-  }
-
-  /* ── ORNAMENT ── */
-  .ornament {
-    text-align: center;
-    font-size: 1.2rem;
-    color: var(--gold);
-    margin: 18px 0 4px;
-    letter-spacing: 4px;
-  }
-
-  footer {
-    text-align: center;
-    padding: 20px 16px 30px;
-    color: var(--muted);
-    font-size: 0.68rem;
-    letter-spacing: 0.5px;
-    border-top: 1px solid var(--border);
-    margin-top: 10px;
-    line-height: 1.8;
-  }
-
-  @media (max-width: 400px) {
-    .header-text h1 { font-size: 1.25rem; }
-    .day-label { font-size: 1.35rem; }
-    .event-title { font-size: 0.82rem; }
-  }
-</style>
+    .dot-green  { background: var(--accent);  }
+    .dot-blue   { background: var(--accent2); }
+    .dot-red    { background: var(--accent3); }
+    .dot-yellow { background: var(--accent4); }
+  </style>
 </head>
 <body>
 
-<header>
-  <div class="flag-stripe"></div>
-  <div class="header-inner">
-    <div class="bull-icon">🐂</div>
-    <div class="header-text">
-      <h1>Sport on TV</h1>
-      <p>Ireland &nbsp;·&nbsp; 16–17 May 2026</p>
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+
+<div class="container">
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="badge"><span class="dot"></span>AI Enterprise Plan</div>
+    <h1>Your Path to<br><span>Building with AI</span></h1>
+    <p class="hero-sub">A step-by-step roadmap to go from zero to building real AI projects — all free, all in your browser.</p>
+  </header>
+
+  <!-- PHASE ROADMAP -->
+  <p class="section-label">The Roadmap</p>
+  <div class="timeline">
+
+    <div class="phase">
+      <div class="phase-dot dot-green"></div>
+      <div class="phase-card">
+        <div class="phase-header">
+          <span class="phase-num bg-green">Phase 1</span>
+          <span class="phase-title">Train Your First AI Model</span>
+        </div>
+        <p class="phase-desc">No typing code yet — just drag, drop and train. Use <strong class="c-green">Machine Learning for Kids</strong> to build a model that reacts to your words, face, or numbers. Then wire it into a Scratch game. This is real machine learning, just with a friendly interface.</p>
+      </div>
     </div>
-    <div class="tz-badge">
-      🇮🇪 IST = UTC+1<br>
-      🇪🇸 CEST = UTC+2<br>
-      <strong>Spain is +1hr</strong>
+
+    <div class="phase">
+      <div class="phase-dot dot-blue"></div>
+      <div class="phase-card">
+        <div class="phase-header">
+          <span class="phase-num bg-blue">Phase 2</span>
+          <span class="phase-title">Go Visual with Teachable Machine</span>
+        </div>
+        <p class="phase-desc">Open <strong class="c-blue">Google Teachable Machine</strong> in any browser. Train an AI to recognise your face, hand signs, or voice — in under 5 minutes. No account needed. Instant results you can share with friends or embed in a website.</p>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-dot dot-yellow"></div>
+      <div class="phase-card">
+        <div class="phase-header">
+          <span class="phase-num bg-yellow">Phase 3</span>
+          <span class="phase-title">Learn Python in the Cloud</span>
+        </div>
+        <p class="phase-desc">When you're ready for real code, use <strong class="c-yellow">Google Colab</strong> — a free cloud notebook that runs on any laptop or Chromebook. Zero setup. You write Python, Google's computers do the heavy lifting. Try your first AI project from an existing Kaggle notebook.</p>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-dot dot-red"></div>
+      <div class="phase-card">
+        <div class="phase-header">
+          <span class="phase-num bg-red">Phase 4</span>
+          <span class="phase-title">Build &amp; Ship Your First Project</span>
+        </div>
+        <p class="phase-desc">Use <strong class="c-red">Replit</strong> to build and host a real app — a chatbot, image classifier, or something you invent. Replit's AI assistant explains every error in plain English. Push your code to <strong class="c-red">GitHub</strong> so you have a portfolio from day one.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TOOLS GRID -->
+  <p class="section-label">Your Toolkit</p>
+  <div class="tool-grid">
+
+    <div class="tool-card" style="animation-delay:0.05s">
+      <div class="tool-icon">🧠</div>
+      <div class="tool-name">Machine Learning for Kids</div>
+      <div class="tool-desc">Train models with your own data and build a Scratch game around them. The fastest way to see AI in action.</div>
+      <span class="tool-tag bg-green">Free · No install</span>
+    </div>
+
+    <div class="tool-card" style="animation-delay:0.1s">
+      <div class="tool-icon">📷</div>
+      <div class="tool-name">Google Teachable Machine</div>
+      <div class="tool-desc">Recognise faces, gestures or sounds using your webcam. Results in seconds, shareable link included.</div>
+      <span class="tool-tag bg-blue">Free · Browser only</span>
+    </div>
+
+    <div class="tool-card" style="animation-delay:0.15s">
+      <div class="tool-icon">🐍</div>
+      <div class="tool-name">Google Colab</div>
+      <div class="tool-desc">Free Python notebooks in the cloud. Runs on even the cheapest laptop. Great for AI experiments.</div>
+      <span class="tool-tag bg-yellow">Free · GPU included</span>
+    </div>
+
+    <div class="tool-card" style="animation-delay:0.2s">
+      <div class="tool-icon">⚡</div>
+      <div class="tool-name">Replit</div>
+      <div class="tool-desc">Code and host real projects online. Built-in AI explains errors so you learn faster.</div>
+      <span class="tool-tag bg-red">Free tier · Beginner friendly</span>
+    </div>
+
+    <div class="tool-card" style="animation-delay:0.25s">
+      <div class="tool-icon">📚</div>
+      <div class="tool-name">Elements of AI</div>
+      <div class="tool-desc">A free course that explains how AI works without heavy maths. Designed for complete beginners.</div>
+      <span class="tool-tag bg-green">Free course</span>
+    </div>
+
+    <div class="tool-card" style="animation-delay:0.3s">
+      <div class="tool-icon">🏆</div>
+      <div class="tool-name">Kaggle Learn</div>
+      <div class="tool-desc">Short hands-on Python and ML micro-courses. A few hours each. Earn certificates you can show off.</div>
+      <span class="tool-tag bg-blue">Free · Certificates</span>
+    </div>
+
+  </div>
+
+  <!-- SKILL PROGRESS -->
+  <p class="section-label">Skill Progression</p>
+  <div class="progress-section">
+    <div class="progress-item">
+      <div class="prog-label"><span>No-Code AI</span><span>Start here → Phase 1 &amp; 2</span></div>
+      <div class="prog-track"><div class="prog-fill" style="width:100%;background:var(--accent)"></div></div>
+    </div>
+    <div class="progress-item">
+      <div class="prog-label"><span>Python Basics</span><span>Phase 3 → Google Colab</span></div>
+      <div class="prog-track"><div class="prog-fill" style="width:65%;background:var(--accent4)"></div></div>
+    </div>
+    <div class="progress-item">
+      <div class="prog-label"><span>Machine Learning</span><span>Phase 3 → Kaggle Learn</span></div>
+      <div class="prog-track"><div class="prog-fill" style="width:45%;background:var(--accent2)"></div></div>
+    </div>
+    <div class="progress-item">
+      <div class="prog-label"><span>Build &amp; Ship</span><span>Phase 4 → Replit + GitHub</span></div>
+      <div class="prog-track"><div class="prog-fill" style="width:30%;background:var(--accent3)"></div></div>
     </div>
   </div>
-  <nav class="tabs">
-    <button class="tab-btn active" onclick="switchTab('sat',this)">
-      Saturday
-      <span class="sub">16 May</span>
-    </button>
-    <button class="tab-btn" onclick="switchTab('sun',this)">
-      Sunday
-      <span class="sub">17 May</span>
-    </button>
-  </nav>
-</header>
 
-<div class="content">
-
-  <!-- ====== SATURDAY ====== -->
-  <div id="sat" class="tab-panel active">
-
-    <div class="day-header">
-      <span class="day-label">Sábado 16</span>
-      <span class="event-count">18 events</span>
-    </div>
-
-    <div class="tz-legend">
-      <span><span class="dot dot-ire"></span>🇮🇪 Irish Time (IST)</span>
-      <span><span class="dot dot-esp"></span>🇪🇸 Spain Time (CEST = +1hr)</span>
-    </div>
-
-    <div class="section-divider"><span>⛳ Golf</span></div>
-
-    <div class="event-card">
-      <div class="sport-icon">⛳</div>
-      <div class="event-info"><div class="event-title">PGA Championship</div><div class="event-sub">Golf – Major</div></div>
-      <div class="event-meta">
-        <div class="times">
-          <div class="time-row"><span class="time-flag">🇮🇪</span><span class="event-time-ire">15:00</span></div>
-          <div class="time-row"><span class="time-flag">🇪🇸</span><span class="event-time-esp">16:00</span></div>
-        </div>
-        <span class="event-channel ch-sky">Sky Golf</span>
+  <!-- SAFETY CHECKLIST -->
+  <p class="section-label">Safety &amp; Setup</p>
+  <ul class="checklist">
+    <li>
+      <div class="check-icon bg-green">🔒</div>
+      <div>
+        <strong>Use a Supervised Google Account</strong>
+        <span>Google Colab needs a Google account. Set up a shared or supervised account so a parent can check in on your projects any time.</span>
       </div>
-    </div>
-
-    <div class="section-divider"><span>🏇 Racing</span></div>
-
-    <div class="event-card">
-      <div class="sport-icon">🏇</div>
-      <div class="event-info"><div class="event-title">Horse Racing – York &amp; Newmarket</div><div class="event-sub">Live Flat Racing</div></div>
-      <div class="event-meta">
-        <div class="times">
-          <div class="time-row"><span class="time-flag">🇮🇪</span><span class="event-time-ire">13:15</span></div>
-          <div class="time-row"><span class="time-flag">🇪🇸</span><span class="event-time-esp">14:15</span></div>
-        </div>
-        <span class="event-channel ch-utv">UTV</span>
+    </li>
+    <li>
+      <div class="check-icon bg-yellow">💳</div>
+      <div>
+        <strong>Set Spending Limits on Any Paid APIs</strong>
+        <span>If you ever use a paid tool (like OpenAI), set a hard cap — €5/month is plenty. Most of what you need is totally free to start.</span>
       </div>
-    </div>
-
-    <div class="section-divider"><span>⚽ Football</span></div>
-
-    <div class="event-card">
-      <div class="sport-icon">⚽</div>
-      <div class="event-info"><div class="event-title">SPL – Celtic v Hearts</div><div class="event-sub">Scottish Premiership</div></div>
-      <div class="event-meta">
-        <div class="times">
-          <div class="time-row"><span class="time-flag">🇮🇪</span><span class="event-time-ire">12:30</span></div>
-          <div class="time-row"><span class="time-flag">🇪🇸</span><span class="event-time-esp">13:30</span></div>
-        </div>
-        <span class="event-channel ch-sky">Sky Main</span>
+    </li>
+    <li>
+      <div class="check-icon bg-blue">🤖</div>
+      <div>
+        <strong>Use AI as Your Tutor</strong>
+        <span>When you get stuck, ask ChatGPT or Claude: <em>"Explain this Python error to me like I'm 12."</em> You'll learn faster this way than watching tutorials.</span>
       </div>
+    </li>
+  </ul>
+
+  <!-- AI TUTOR TIP -->
+  <div class="tip-box">
+    <div class="tip-label">🎓 Pro Tip — Your AI Tutor</div>
+    <p>Any time you're confused by code or an error message, just paste it into Claude or ChatGPT and try this prompt:</p>
+    <code>"Explain this Python error to me like I am 12 years old, and show me how to fix it step by step."</code>
+  </div>
+
+  <!-- GITHUB CALLOUT -->
+  <div class="github-bar">
+    <div class="gh-icon">🐙</div>
+    <div class="gh-text">
+      <strong>Start Your GitHub Portfolio Today</strong>
+      <span>Every project you build goes on GitHub. Even your first Colab notebook. In two years you'll have a real portfolio that speaks for itself.</span>
     </div>
+  </div>
 
-    <div class="event-card">
-      <div class="sport-icon">🏆</div>
-      <div class="event-info"><div class="event-title">FA Cup Final – Chelsea v Man City</div><div class="event-sub">FA Cup Final, Wembley</div></div>
-      <div class="event-meta">
-        <div class="times">
-          <div class="time-row"><span class="time-flag">🇮🇪</span><span class="event-time-ire">15:00</span></div>
-          <div class="time-row"><span class="time-flag">🇪🇸</span><span class="event-time-esp">16:00</span></div>
-        </div>
-        <span class="event-channel ch-bbc">BBC One</span>
-      </div>
-    </div>
+  <!-- FOOTER -->
+  <footer>
+    Built with 🚀 for a future <strong>AI entrepreneur</strong> &nbsp;·&nbsp; Keep building, keep shipping
+  </footer>
 
-    <div class="event-card">
-      <div class="sport-icon">📺</div>
-      <div class="event-info"><div class="event-title">Prem MOTD</div><div class="event-sub">Match of the Day Highlights</div></div>
-      <div class="event-meta">
-        <div class="times">
-          <div class="time-row"><span class="time-flag">🇮🇪</span><span class="event-time-ire">22:20</span></div>
-          <div class="time-row"><span class="time-flag">🇪🇸</span><span class="event-time-esp">23:20</span></div>
-        </div>
-        <span class="event-channel ch-bbc">BBC One</span>
-      </div>
-    </div>
-
-    <div class="section-divider"><span>🏉 Rugby</span></div>
-
-    <div class="event-card">
-      <div class="sport-icon">🏉</div>
-      <div class="event-info"><div class="event-title">URC – Sharks v Zebre</div><div class="event-sub">United Rugby Championship</div></div>
-      <div class="event-meta">
-        <div class="times">
-          <div class="time-row"><span class="time-flag">🇮🇪</span><span class="event-time-ire">12:45</span></div>
-          <div class="time-row"><span class="time-flag">🇪🇸</span><span class="event-time-esp">13:45</span></div>
-        </div>
-        <span class="event-channel ch-sky">Prem Sports 2</span>
-      </div>
-    </div>
-
-    <div class="event-card">
-      <div class="sport-icon">🏉</div>
-      <div class="event-info"><div class="event-title">URC – Bulls v Benetton</div><div class="event-sub">United Rugby Championship</div></div>
-      <div class="event-meta">
-        <div class="times">
-          <div class="time-row"><span class="time-flag">🇮🇪</span><span class="event-time-ire">15:00</span></div>
-          <div class="time-row"><span class="time-flag">🇪🇸</span><span class="event-time-esp">16:00</span></div>
-        </div>
-        <span class="event-channel ch-sky">Prem Sports 2</span>
-      </div>
-    </div>
-
-    <div class="event-card">
-      <div class="sport-icon">🏉</div>
-      <div class="event-info"><div class="event-title">Prem Rugby – Harlequins v Exeter</div><div class="event-sub">Gallagher Premiership</div></div>
-      <div class="event-meta">
-        <div class="times">
-          <div class="time-row"><span class="time-flag">🇮🇪</span><span class="event-time-ire">16:00</span></div>
-          <div class="time-row"><span class="time-flag">🇪🇸</span><span class="event-time-esp">17:00</span></div>
-        </div>
-        <span class="event-channel ch-tnt">TNT Sports 2</span>
-      </div>
-    </div>
-
-    <div class="event-card">
-      <div class="sport-icon">🏉</div>
-      <div class="event-info"><div class="event-title">URC – Leinster v Ospreys</div><div class="event-sub">United Rugby Championship</div></div>
-      <div class="event-meta">
-        <div class="times">
-          <div class="time-row"><span class="time-flag">🇮🇪</span><span class="event-time-ire">17:15</span></div>
-          <div class="time-row"><span class="time-flag">🇪🇸</span><span class="event-time-esp">18:15</span></div>
-        </div>
-        <span class="event-channel ch-tg4">TG4</span>
-      </div>
-    </div>
-
-    <div class="event-card">
-      <div class="sport-icon">🏉</div>
-      <div class="event-info"><div class="event-title">URC – Scarlets v Dragons</div><div class="event-sub">United Rugby Championship</div></div>
-      <div class="event-meta">
-        <div class="times">
-          <div class="time-row"><span class="time-flag">🇮🇪</span><span class="event-time-ire">17:15</span></div>
-          <div class="time-row"><span class="time-flag">🇪🇸</span><span class="event-time-esp">18:15</span></div>
-        </div>
-        <span class="event-channel ch-sky">Prem Sports 2</span>
-      </div>
-    </div>
-
-    <div class="event-card">
-      <div class="sport-icon">🏉</div>
-      <div class="event-info"><div class="event-title">Prem Rugby – Saracens v Gloucester</div><div class="event-sub">Gallagher Premiership</div></div>
-      <div class="event-meta">
-        <div class="times">
-          <div class="time-row"><span class="time-flag">🇮🇪</span><span class="event-time-ire">18:30</span></div>
-          <div class="time-row"><span class="time-flag">🇪🇸</span><span class="event-time-esp">19:30</span></div>
-        </div>
-        <span class="event-channel ch-tnt">TNT Sports 2</span>
-      </div>
-    </div>
-
-    <div class="event-card">
-      <div class="sport-icon">🏉</div>
-      <div class="event-info"><div class="event-title">URC – Munster v Lions</div><div class="event-sub">United Rugby Championship</div></div>
-      <div class="event-meta">
-        <div class="times">
-          <div class="time-row"><span class="time-flag">🇮🇪</span><span class="event-time-ire">19:45</span></div>
-          <div class="time-row"><span class="time-flag">🇪🇸</span><span class="event-time-esp">20:45</span></div>
-        </div>
-        <span class="event-channel ch-sky">Prem Sports 1</span>
-      </div>
-    </div>
-
-    <div class="section-divider"><span>🏑 GAA – Hurling</span></div>
-
-    <div class="event-card gaa">
-      <div class="sport-icon">🏑</div>
-      <div class="event-info"><div class="event-title">Leinster SHC – Galway v Dublin</div><div class="event-sub">Pearse Stadium, Salthill</div></div>
-      <div class="event-meta">
-        <div class="times">
-          <div class="time-row"><span class="time-flag">🇮🇪</span><span class="event-time-ire">16:30</span></div>
-          <div class="time-row"><span class="time-flag">🇪🇸</span><span class="event-time-esp">17:30</span></div>
-        </div>
-        <span class="event-channel ch-gaa">GAA+</span>
-      </div>
-    </div>
-
-    <div class="event-card gaa">
-      <div class="sport-icon">🏑</div>
-      <div class="event-info"><div class="event-title">Munster SHC – Tipperary v Clare</div><div class="event-sub">FBD Semple Stadium, Thurles</div></div>
-      <div class="event-meta">
-        <div class="times">
-          <div class="time-row"><span class="time-flag">🇮🇪</span><span class="event-time-ire">19:00</span></div>
-          <div class="time-row"><span class="time-flag">🇪🇸</span><span class="event-time-esp">20:00</span></div>
-        </div>
-        <span class="event-channel ch-gaa">GAA+</span>
-      </div>
-    </div>
-
-    <div class="section-divider"><span>🏐 GAA – Football</span></div>
-
-    <div class="event-card gaa">
-      <div class="sport-icon">🏐</div>
-      <div class="event-info"><div class="event-title">Tailteann Cup – Down v Leitrim</div><div class="event-sub">Páirc Esler, Newry</div></div>
-      <div class="event-meta">
-        <div class="times">
-          <div class="time-row"><span class="time-flag">🇮🇪</span><span class="event-time-ire">18:00</span></div>
-          <div class="time-row"><span class="time-flag">🇪🇸</span><span class="event-time-esp">19:00</span></div>
-        </div>
-        <span class="event-channel ch-gaa">GAA+</span>
-      </div>
-    </div>
-
-    <div class="event-card gaa">
-      <div class="sport-icon">🏐</div>
-      <div class="event-info"><div class="event-title">Munster SHC – Limerick v Waterford ★</div><div class="event-sub">Ulster SFC Semi – Monaghan v Armagh</div></div>
-      <div class="event-meta">
-        <div class="times">
-          <div class="time-row"><span class="time-flag">🇮🇪</span><span class="event-time-ire">19:00</span></div>
-          <div class="time-row"><span class="time-flag">🇪🇸</span><span class="event-time-esp">20:00</span></div>
-        </div>
-        <span class="event-channel ch-rte">RTÉ 2</span>
-      </div>
-    </div>
-
-    <div class="event-card gaa">
-      <div class="sport-icon">📺</div>
-      <div class="event-info"><div class="event-title">The Saturday Game</div><div class="event-sub">GAA Highlights &amp; Analysis</div></div>
-      <div class="event-meta">
-        <div class="times">
-          <div class="time-row"><span class="time-flag">🇮🇪</span><span class="event-time-ire">21:30</span></div>
-          <div class="time-row"><span class="time-flag">🇪🇸</span><span class="event-time-esp">22:30</span></div>
-        </div>
-        <span class="event-channel ch-rte">RTÉ 2</span>
-      </div>
-    </div>
-
-    <div class="section-divider"><span>🥊 MMA / UFC</span></div>
-
-    <div class="event-card">
-      <div class="sport-icon">🥊</div>
-      <div class="event-info"><div class="event-title">UFC – Allen v Costa</div><div class="event-sub">UFC Fight Night</div></div>
-      <div class="event-meta">
-        <div class="times">
-          <div class="time-row"><span class="time-flag">🇮🇪</span><span class="event-time-ire">01:00</span></div>
-          <div class="time-row"><span class="time-flag">🇪🇸</span><span class="event-time-esp">02:00</span></div>
-        </div>
-        <span class="event-channel ch-tnt">TNT Sports 1</span>
-      </div>
-    </div>
-
-    <div class="event-card">
-      <div class="sport-icon">🥋</div>
-      <div class="event-info"><div class="event-title">MMA – Ronda Rousey v Gina Carano</div><div class="event-sub">MMA</div></div>
-      <div class="event-meta">
-        <div class="times">
-          <div class="time-row"><span class="time-flag">🇮🇪</span><span class="event-time-ire">04:30</span></div>
-          <div class="time-row"><span class="time-flag">🇪🇸</span><span class="event-time-esp">05:30</span></div>
-        </div>
-        <span class="event-channel ch-netflix">Netflix</span>
-      </div>
-    </div>
-
-  </div><!-- /sat -->
-
-
-  <!-- ====== SUNDAY ====== -->
-  <div id="sun" class="tab-panel">
-
-    <div class="day-header">
-      <span class="day-label">Domingo 17</span>
-      <span class="event-count">20 events</span>
-    </div>
-
-    <div class="tz-legend">
-      <span><span class="dot dot-ire"></span>🇮🇪 Irish Time (IST)</span>
-      <span><span class="dot dot-esp"></span>🇪🇸 Spain Time (CEST = +1hr)</span>
-    </div>
-
-    <div class="section-divider"><span>🏍️ MotoGP</span></div>
-
-    <div class="event-card">
-      <div class="sport-icon">🏍️</div>
-      <div class="event-info"><div class="event-title">MotoGP – GP of Catalunya</div><div class="event-sub">Circuit de Barcelona-Catalunya</div></div>
-      <div class="event-meta">
-        <div class="times">
-          <div class="time-row"><span class="time-flag">🇮🇪</span><span class="event-time-ire">12:15</span></div>
-          <div class="time-row"><span class="time-flag">🇪🇸</span><span class="event-time-esp">13:15</span></div>
-        </div>
-        <span class="event-channel ch-tnt">TNT Sports 2</span>
-      </div>
-    </div>
-
-    <div class="section-divider"><span>⛳ Golf</span></div>
-
-    <div class="event-card">
-      <div class="sport-icon">⛳</div>
-      <div class="event-info"><div class="event-title">PGA Championship – Final Round</div><div class="event-sub">Golf – Major</div></div>
-      <div class="event-meta">
-        <div class="times">
-          <div class="time-row"><span class="time-flag">🇮🇪</span><span class="event-time-ire">16:00</span></div>
-          <div class="time-row"><span class="time-flag">🇪🇸</span><span class="event-time-esp">17:00</span></div>
-        </div>
-        <span class="event-channel ch-sky">Sky Golf</span>
-      </div>
-    </div>
-
-    <div class="section-divider"><span>🏉 Rugby</span></div>
-
-    <div class="event-card">
-      <div class="sport-icon">🏉</div>
-      <div class="event-info"><div class="event-title">Women's 6 Nations – Wales v Italy</div><div class="event-sub">Women's Six Nations</div></div>
-      <div class="event-meta">
-        <div class="times">
-          <div class="time-row"><span class="time-flag">🇮🇪</span><span class="event-time-ire">12:15</span></div>
-          <div class="time-row"><span class="time-flag">🇪🇸</span><span class="event-time-esp">13:15</span></div>
-        </div>
-        <span class="event-channel ch-bbc">BBC Two</span>
-      </div>
-    </div>
-
-    <div class="event-card">
-      <div class="sport-icon">🏉</div>
-      <div class="event-info"><div class="event-title">Prem Rugby – Sale v Leicester</div><div class="event-sub">Gallagher Premiership</div></div>
-      <div class="event-meta">
-        <div class="times">
-          <div class="time-row"><span class="time-flag">🇮🇪</span><span class="event-time-ire">15:00</span></div>
-          <div class="time-row"><span class="time-flag">🇪🇸</span><span class="event-time-esp">16:00</span></div>
-        </div>
-        <span class="event-channel ch-tnt">TNT Sports 1</span>
-      </div>
-    </div>
-
-    <div class="event-card">
-      <div class="sport-icon">🏉</div>
-      <div class="event-info"><div class="event-title">Women's 6 Nations – France v England</div><div class="event-sub">Women's Six Nations</div></div>
-      <div class="event-meta">
-        <div class="times">
-          <div class="time-row"><span class="time-flag">🇮🇪</span><span class="event-time-ire">16:45</span></div>
-          <div class="time-row"><span class="time-flag">🇪🇸</span><span class="event-time-esp">17:45</span></div>
-        </div>
-        <span class="event-channel ch-bbc">BBC iPlayer</span>
-      </div>
-    </div>
-
-    <div class="section-divider"><span>⚽ Football</span></div>
-
-    <div class="event-card">
-      <div class="sport-icon">⚽</div>
-      <div class="event-info"><div class="event-title">Premier League – Man Utd v Notts Forest</div><div class="event-sub">English Premier League</div></div>
-      <div class="event-meta">
-        <div class="times">
-          <div class="time-row"><span class="time-flag">🇮🇪</span><span class="event-time-ire">12:30</span></div>
-          <div class="time-row"><span class="time-flag">🇪🇸</span><span class="event-time-esp">13:30</span></div>
-        </div>
-        <span class="event-channel ch-sky">Sky Prem</span>
-      </div>
-    </div>
-
-    <div class="event-card">
-      <div class="sport-icon">⚽</div>
-      <div class="event-info"><div class="event-title">SPL – Livingston v Kilmarnock</div><div class="event-sub">Scottish Premiership</div></div>
-      <div class="event-meta">
-        <div class="times">
-          <div class="time-row"><span class="time-flag">🇮🇪</span><span class="event-time-ire">14:00</span></div>
-          <div class="time-row"><span class="time-flag">🇪🇸</span><span class="event-time-esp">15:00</span></div>
-        </div>
-        <span class="event-channel ch-sky">Prem Sports 1</span>
-      </div>
-    </div>
-
-    <div class="event-card">
-      <div class="sport-icon">⚽</div>
-      <div class="event-info"><div class="event-title">Prem – Leeds Utd v Brighton</div><div class="event-sub">English Premier League</div></div>
-      <div class="event-meta">
-        <div class="times">
-          <div class="time-row"><span class="time-flag">🇮🇪</span><span class="event-time-ire">15:00</span></div>
-          <div class="time-row"><span class="time-flag">🇪🇸</span><span class="event-time-esp">16:00</span></div>
-        </div>
-        <span class="event-channel ch-sky">Sky Main</span>
-      </div>
-    </div>
-
-    <div class="event-card">
-      <div class="sport-icon">⚽</div>
-      <div class="event-info"><div class="event-title">Prem – Everton v Sunderland</div><div class="event-sub">English Premier League</div></div>
-      <div class="event-meta">
-        <div class="times">
-          <div class="time-row"><span class="time-flag">🇮🇪</span><span class="event-time-ire">15:00</span></div>
-          <div class="time-row"><span class="time-flag">🇪🇸</span><span class="event-time-esp">16:00</span></div>
-        </div>
-        <span class="event-channel ch-sky">Sky Prem</span>
-      </div>
-    </div>
-
-    <div class="event-card">
-      <div class="sport-icon">⚽</div>
-      <div class="event-info"><div class="event-title">Prem – Brentford v Crystal Palace</div><div class="event-sub">English Premier League</div></div>
-      <div class="event-meta">
-        <div class="times">
-          <div class="time-row"><span class="time-flag">🇮🇪</span><span class="event-time-ire">15:00</span></div>
-          <div class="time-row"><span class="time-flag">🇪🇸</span><span class="event-time-esp">16:00</span></div>
-        </div>
-        <span class="event-channel ch-sky">Sky Football</span>
-      </div>
-    </div>
-
-    <div class="event-card">
-      <div class="sport-icon">⚽</div>
-      <div class="event-info"><div class="event-title">Prem – Wolves v Fulham</div><div class="event-sub">English Premier League</div></div>
-      <div class="event-meta">
-        <div class="times">
-          <div class="time-row"><span class="time-flag">🇮🇪</span><span class="event-time-ire">15:00</span></div>
-          <div class="time-row"><span class="time-flag">🇪🇸</span><span class="event-time-esp">16:00</span></div>
-        </div>
-        <span class="event-channel ch-sky">Sky F1</span>
-      </div>
-    </div>
-
-    <div class="event-card">
-      <div class="sport-icon">⚽</div>
-      <div class="event-info"><div class="event-title">Prem – Newcastle v West Ham</div><div class="event-sub">English Premier League</div></div>
-      <div class="event-meta">
-        <div class="times">
-          <div class="time-row"><span class="time-flag">🇮🇪</span><span class="event-time-ire">17:30</span></div>
-          <div class="time-row"><span class="time-flag">🇪🇸</span><span class="event-time-esp">18:30</span></div>
-        </div>
-        <span class="event-channel ch-sky">Sky Prem</span>
-      </div>
-    </div>
-
-    <div class="event-card">
-      <div class="sport-icon">⚽</div>
-      <div class="event-info"><div class="event-title">W6N – Women's 6N Highlights</div><div class="event-sub">Weekend Round-Up</div></div>
-      <div class="event-meta">
-        <div class="times">
-          <div class="time-row"><span class="time-flag">🇮🇪</span><span class="event-time-ire">22:00</span></div>
-          <div class="time-row"><span class="time-flag">🇪🇸</span><span class="event-time-esp">23:00</span></div>
-        </div>
-        <span class="event-channel ch-vm">VM Two</span>
-      </div>
-    </div>
-
-    <div class="event-card">
-      <div class="sport-icon">📺</div>
-      <div class="event-info"><div class="event-title">Prem – MOTD</div><div class="event-sub">Match of the Day</div></div>
-      <div class="event-meta">
-        <div class="times">
-          <div class="time-row"><span class="time-flag">🇮🇪</span><span class="event-time-ire">22:30</span></div>
-          <div class="time-row"><span class="time-flag">🇪🇸</span><span class="event-time-esp">23:30</span></div>
-        </div>
-        <span class="event-channel ch-bbc">BBC One</span>
-      </div>
-    </div>
-
-    <div class="section-divider"><span>🏇 Racing</span></div>
-
-    <div class="event-card">
-      <div class="sport-icon">🏇</div>
-      <div class="event-info"><div class="event-title">Horse Racing – Naas</div><div class="event-sub">Irish Flat Racing</div></div>
-      <div class="event-meta">
-        <div class="times">
-          <div class="time-row"><span class="time-flag">🇮🇪</span><span class="event-time-ire">14:15</span></div>
-          <div class="time-row"><span class="time-flag">🇪🇸</span><span class="event-time-esp">15:15</span></div>
-        </div>
-        <span class="event-channel ch-tg4">TG4</span>
-      </div>
-    </div>
-
-    <div class="event-card">
-      <div class="sport-icon">🏇</div>
-      <div class="event-info"><div class="event-title">Horse Racing – Hamilton</div><div class="event-sub">UK Flat Racing</div></div>
-      <div class="event-meta">
-        <div class="times">
-          <div class="time-row"><span class="time-flag">🇮🇪</span><span class="event-time-ire">15:30</span></div>
-          <div class="time-row"><span class="time-flag">🇪🇸</span><span class="event-time-esp">16:30</span></div>
-        </div>
-        <span class="event-channel ch-utv">UTV</span>
-      </div>
-    </div>
-
-    <div class="section-divider"><span>🏑 GAA – Hurling</span></div>
-
-    <div class="event-card gaa">
-      <div class="sport-icon">🏑</div>
-      <div class="event-info"><div class="event-title">Munster SHC – Limerick v Waterford</div><div class="event-sub">TUS Gaelic Grounds, Limerick</div></div>
-      <div class="event-meta">
-        <div class="times">
-          <div class="time-row"><span class="time-flag">🇮🇪</span><span class="event-time-ire">15:00</span></div>
-          <div class="time-row"><span class="time-flag">🇪🇸</span><span class="event-time-esp">16:00</span></div>
-        </div>
-        <span class="event-channel ch-gaa">GAA+</span>
-      </div>
-    </div>
-
-    <div class="section-divider"><span>🏐 GAA – Football FINALS 🏆</span></div>
-
-    <div class="event-card gaa">
-      <div class="sport-icon">🏆</div>
-      <div class="event-info">
-        <div class="event-title">Leinster SFC Final – Dublin v Westmeath</div>
-        <div class="event-sub">Páirc an Chrócaigh, Dublin · Leinster Final</div>
-      </div>
-      <div class="event-meta">
-        <div class="times">
-          <div class="time-row"><span class="time-flag">🇮🇪</span><span class="event-time-ire">14:00</span></div>
-          <div class="time-row"><span class="time-flag">🇪🇸</span><span class="event-time-esp">15:00</span></div>
-        </div>
-        <span class="event-channel ch-rte">RTÉ 2</span>
-      </div>
-    </div>
-
-    <div class="event-card gaa">
-      <div class="sport-icon">🏐</div>
-      <div class="event-info">
-        <div class="event-title">Ulster SFC – Monaghan v Armagh</div>
-        <div class="event-sub">St Tiernach's Park, Clones · Ulster SFC Semi-Final</div>
-      </div>
-      <div class="event-meta">
-        <div class="times">
-          <div class="time-row"><span class="time-flag">🇮🇪</span><span class="event-time-ire">16:15</span></div>
-          <div class="time-row"><span class="time-flag">🇪🇸</span><span class="event-time-esp">17:15</span></div>
-        </div>
-        <span class="event-channel ch-rte">RTÉ 2</span>
-      </div>
-    </div>
-
-    <div class="event-card gaa">
-      <div class="sport-icon">📺</div>
-      <div class="event-info"><div class="event-title">The Sunday Game</div><div class="event-sub">GAA Highlights &amp; Analysis</div></div>
-      <div class="event-meta">
-        <div class="times">
-          <div class="time-row"><span class="time-flag">🇮🇪</span><span class="event-time-ire">21:30</span></div>
-          <div class="time-row"><span class="time-flag">🇪🇸</span><span class="event-time-esp">22:30</span></div>
-        </div>
-        <span class="event-channel ch-rte">RTÉ 2</span>
-      </div>
-    </div>
-
-  </div><!-- /sun -->
-
-</div><!-- /content -->
-
-<div class="ornament">✦ ✦ ✦</div>
-<footer>
-  🇮🇪 IST = UTC+1 &nbsp;|&nbsp; 🇪🇸 CEST = UTC+2 &nbsp;|&nbsp; Spain is always 1 hour ahead of Ireland in summer<br>
-  All listings subject to change · Sources: RTÉ, Sky Sports, BBC, TG4, GAA+, Virgin Media, TNT Sports
-</footer>
-
-<script>
-  function switchTab(id, btn) {
-    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    btn.classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-</script>
+</div>
 </body>
 </html>
